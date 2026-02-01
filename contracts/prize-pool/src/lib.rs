@@ -56,7 +56,7 @@ mod test {
     #[test]
     fn test_initialize() {
         let env = Env::default();
-        let admin = Address::generate(&env);
+        let _admin = Address::generate(&env);
         // TODO: Test initialization logic
     }
 }
