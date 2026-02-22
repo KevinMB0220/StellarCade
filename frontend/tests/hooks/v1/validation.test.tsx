@@ -252,7 +252,7 @@ describe("useEnumValidation", () => {
 });
 
 describe("useAddressValidation", () => {
-  const validAddress = "GABC23DEFGHIJKLMNOPQRSTUVWXYZ234567ABCDEFGHIJKLMNOPQR";
+  const validAddress = "GABCDEFGHIJKLMNOPQRSTUVWXYZ234567ABCDEFGHIJKLMNOPQRSTUVW";
 
   it("initializes with default values", () => {
     const { result } = renderHook(() => useAddressValidation());
