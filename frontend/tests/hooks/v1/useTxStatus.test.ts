@@ -164,6 +164,20 @@ describe('TxStatusService', () => {
         expect(calls).toEqual([TxPhase.IDLE]); // only the initial emit
     });
 
+    it('late subscribers receive current error in initial emit if FAILED', async () => {
+        const svc = new TxStatusService(
+            makeSequenceProvider(['FAILED']),
+            { pollIntervalMs: 100 },
+        );
+        svc.track(HASH);
+        await flushTimers(); // service reaches FAILED
+        expect(svc.getPhase()).toBe(TxPhase.FAILED);
+
+        let receivedError: any = null;
+        svc.subscribe((_p, _m, e) => { receivedError = e; });
+        expect(receivedError).toBeInstanceOf(TxRejectedError);
+    });
+
     it('invalid subscriber throws TxValidationError', () => {
         const svc = new TxStatusService(makeSequenceProvider(['NOT_FOUND']));
         expect(() => svc.subscribe(null as any)).toThrow(TxValidationError);

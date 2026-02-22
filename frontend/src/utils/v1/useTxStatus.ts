@@ -167,7 +167,7 @@ export class TxStatusService {
         this.subscribers.add(fn);
         // Emit current state immediately
         try {
-            fn(this.phase, this.meta, null);
+            fn(this.phase, this.meta, this.meta?.error ?? null);
         } catch (e) {
             console.error('[TxStatusService] Subscriber threw on initial call', e);
         }
