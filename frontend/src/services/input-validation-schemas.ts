@@ -96,29 +96,29 @@ export const COIN_FLIP_SIDE_TO_U32: Record<CoinFlipSide, number> = {
  *
  * 1 XLM = 10_000_000 stroops.
  */
-export const COIN_FLIP_WAGER_BOUNDS: WagerBounds = {
+export const COIN_FLIP_WAGER_BOUNDS: Readonly<WagerBounds> = Object.freeze({
   min: 10_000_000n,    // 1 XLM
   max: 10_000_000_000n, // 1 000 XLM
-};
+});
 
 /**
  * Amount bounds for PrizePool reservation and payout operations (in stroops).
  * Kept separate from COIN_FLIP_WAGER_BOUNDS so prize-pool limits can diverge
  * from coin-flip limits independently in the future.
  */
-export const PRIZE_POOL_AMOUNT_BOUNDS: WagerBounds = {
+export const PRIZE_POOL_AMOUNT_BOUNDS: Readonly<WagerBounds> = Object.freeze({
   min: 10_000_000n,    // 1 XLM
   max: 10_000_000_000n, // 1 000 XLM
-};
+});
 
 /**
  * Entry-fee bounds for the Pattern Puzzle contract.
  * min = 0n because free rounds (entry_fee = 0) are valid per the contract.
  */
-export const PUZZLE_ENTRY_FEE_BOUNDS: WagerBounds = {
+export const PUZZLE_ENTRY_FEE_BOUNDS: Readonly<WagerBounds> = Object.freeze({
   min: 0n,
   max: 10_000_000_000n, // 1 000 XLM
-};
+});
 
 /** Maximum bytes a Pattern Puzzle solution may contain (arbitrary client limit). */
 export const PUZZLE_SOLUTION_MAX_BYTES = 1024;
@@ -300,7 +300,7 @@ export function validatePatternCommitment(
  */
 export function validatePuzzleEntryFee(
   value: bigint | string | number | null | undefined,
-  bounds: WagerBounds = PUZZLE_ENTRY_FEE_BOUNDS,
+  bounds: Readonly<WagerBounds> = PUZZLE_ENTRY_FEE_BOUNDS,
 ): ValidationResult<bigint> {
   // Free rounds (0n) are valid — handle before delegating to validateWager.
   if (value !== null && value !== undefined && value !== '') {
