@@ -50,10 +50,10 @@ export interface WagerBounds {
  * Default wager bounds (in stroops: 1 XLM = 10,000,000 stroops).
  * Min: 1 XLM, Max: 1000 XLM
  */
-export const DEFAULT_WAGER_BOUNDS: WagerBounds = {
+export const DEFAULT_WAGER_BOUNDS: Readonly<WagerBounds> = Object.freeze({
   min: 10_000_000n, // 1 XLM
   max: 10_000_000_000n, // 1000 XLM
-};
+});
 
 /**
  * Validates a wager amount against configurable bounds.
@@ -74,7 +74,7 @@ export const DEFAULT_WAGER_BOUNDS: WagerBounds = {
  */
 export function validateWager(
   value: bigint | string | number | null | undefined,
-  bounds: WagerBounds = DEFAULT_WAGER_BOUNDS
+  bounds: Readonly<WagerBounds> = DEFAULT_WAGER_BOUNDS
 ): ValidationResult<bigint> {
   if (value === null || value === undefined || value === "") {
     return {
