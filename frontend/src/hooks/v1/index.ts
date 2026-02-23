@@ -19,5 +19,9 @@ export type {
   FormatAddressOptions,
   FormatDateOptions,
 } from "@/utils/v1/formatters";
+export * from "./useWalletStatus";
+
 export * from "./useAsyncAction";
+
 export * from "./useDebouncedValue";
+
